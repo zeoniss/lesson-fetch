@@ -5,11 +5,65 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>InfiniteScroll</title>
+    <style>
+        #scroller {
+            height: 600px;
+            border: 1px solid tomato;
+            overflow-y: scroll;
+            padding: 100px;
+            ;
+        }
+        
+        #sentinel {
+            height: 1px;
+            width: 1px;
+        }
+        
+        .item {
+            background: aqua;
+            border: 1px solid tomato;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0;
+        }
+    </style>
 </head>
 
 <body>
-    <script src="./index.js"></script>
+    <div id="scroller">
+        <div id="sentinel"></div>
+        <div class="item">item 1</div>
+    </div>
+    <script>
+        const scroller = document.getElementById('scroller')
+        const sentinel = document.getElementById('sentinel')
+        let counter = 1;
+
+        function load(n) {
+            const items = [];
+
+            for (i = 0; i < n; i += 1) {
+                const item = document.createElement('div')
+                item.classList.add('item');
+                item.textContent = `Item ${counter}`;
+                counter += 1;
+                items.push(item)
+            }
+            scroller.append(...items)
+        }
+        const observer = new IntersectionObserver(entries => {
+            if (!entries.some(entry => entry.intersectionRatio > 0)) {
+                return;
+            }
+            load(10)
+            scroller.appendChild(sentinel)
+            load(5)
+        })
+        observer.observe(sentinel)
+    </script>
 </body>
 
 </html>
