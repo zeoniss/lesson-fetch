@@ -10,9 +10,10 @@
         #scroller {
             height: 600px;
             border: 1px solid tomato;
-            overflow-y: scroll;
+            overflow-x: scroll;
             padding: 100px;
-            ;
+            display: flex;
+            flex-wrap: wrap;
         }
         
         #sentinel {
@@ -23,11 +24,12 @@
         .item {
             background: aqua;
             border: 1px solid tomato;
-            height: 100px;
+            width: 100px;
+            height: 600px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 10px 0;
+            margin: 10px 10px;
         }
     </style>
 </head>
